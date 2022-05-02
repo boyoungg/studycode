@@ -47,7 +47,30 @@
 	c0,0-4.3,76.3,15.8,96.7c0,0,14.6,28.3,40.9,16.3c0,0,16.2-5.3,25.5,7.5c0,0,28.8,20.8,27.4,51.2c0,0,3.6,30-25.7,55
 	c0,0-42,38.3-47.7,52.9c0,0-20.4,27.7,2.4,45.4c0,0,14.3,10.6,0.5,28.3c0,0-4.6,11.5-30.1,12.3"/></svg>
 		</div>
+	
+	<div class="footer"></div>
+	
+	<script>
+			const content1 = document.querySelector('.content1')
+			const path1 = document.querySelector('.path2')
+			const path1Length = path1.getTotalLength()
 
-		<div class="footer"></div>
+			path1.style.strokeDasharray = path1Length
+			path1.style.strokeDashoffset = calcDashoffset(window.innerHeight*0.8, content1, path1Length)
+
+			function calcDashoffset(scrollY, element, length) {
+				const ratio = (scrollY - element.offsetTop) / element.offsetHeight
+				const value = length - (length * ratio)
+				return value < 0 ? 0 : value > length ? length : value
+			}
+
+			function scrollHandler() {
+				const scrollY = window.scrollY + (window.innerHeight * 0.8)
+				path1.style.strokeDashoffset = calcDashoffset(scrollY, content1, path1Length)
+			}
+
+			window.addEventListener('scroll', scrollHandler)
+		</script>
+	
 </body>
 </html>
